@@ -1,19 +1,21 @@
 <template>
   <div class="contanier">
     <div v-show="mostrar">
-      <h3>Producto Guardado</h3>
+      <h3>{{mensajeFinal}}</h3>
     </div>
     <div v-show="mostrarMensaje">
-      <p id="mensaje">Error en validar campos productos</p>
+      <p id="mensaje">Todas las entradas deben ser completadas</p>
     </div>
     <p type="Nombre"><input v-model="nuevoNombre" type="text" /></p>
+    <span v-if="this.mensaje.nombre">{{ this.mensaje.nombre }}</span>
     <p type="Código"><input v-model="nuevoCodigo" type="text" /></p>
+    <span v-if="this.mensaje.codigo">{{ this.mensaje.codigo }}</span>
     <p type="Precio"><input v-model="nuevoPrecio" type="text" /></p>
     <p type="Cantidad"><input v-model="nuevoCantidad" type="number" /></p>
     <p type="Fecha de elaboración">
       <input v-model="nuevoFechaElaboracion" type="date" />
     </p>
-    <button @click="validarDatos()">Agregar</button>
+    <button @click="agregarProducto()">Agregar</button>
 
     <table>
       <thead>
@@ -51,13 +53,18 @@
 export default {
   data() {
     return {
+      mensaje: {
+        nombre: null,
+        codigo: null,
+      },
+      mensajeFinal: null,
       mostrar: false,
       mostrarMensaje: false,
-      nuevoNombre: "",
-      nuevoCodigo: "",
-      nuevoPrecio: "",
-      nuevoCantidad: "",
-      nuevoFechaElaboracion: "",
+      nuevoNombre: null,
+      nuevoCodigo: null,
+      nuevoPrecio: null,
+      nuevoCantidad: null,
+      nuevoFechaElaboracion: null,
       productos: [
         {
           nombre: "Aceite 900ml",
@@ -92,14 +99,22 @@ export default {
   },
   methods: {
     agregarProducto() {
-      this.productos.push({
-        nombre: this.nuevoNombre,
-        codigo: this.nuevoCodigo,
-        precio: this.nuevoPrecio,
-        cantidad: this.nuevoCantidad,
-        fechaElaboracion: this.nuevoFechaElaboracion,
-      });
-      this.limpiarCampos();
+      this.mostrarMensaje = false;
+      if (this.validarEntradas()) {
+        this.productos.push({
+          nombre: this.nuevoNombre,
+          codigo: this.nuevoCodigo,
+          precio: this.nuevoPrecio,
+          cantidad: this.nuevoCantidad,
+          fechaElaboracion: this.nuevoFechaElaboracion,
+        });
+        this.mostrar = true;
+        setTimeout(() => {
+          this.mostrar = false;
+        }, 3000);
+        this.mensajeFinal = "Producto agregado correctamente";
+        this.limpiarCampos();
+      }
     },
     limpiarCampos() {
       this.nuevoNombre = "";
@@ -110,11 +125,11 @@ export default {
     },
     validarDatos() {
       if (
-        this.nuevoNombre === "" ||
-        this.nuevoCodigo === "" ||
-        this.nuevoPrecio === "" ||
-        this.nuevoCantidad === "" ||
-        this.nuevoFechaElaboracion === ""
+        this.nuevoNombre === null ||
+        this.nuevoCodigo === null ||
+        this.nuevoPrecio === null ||
+        this.nuevoCantidad === null ||
+        this.nuevoFechaElaboracion === null
       ) {
         this.mostrarMensaje = true;
         setTimeout(() => {
@@ -122,11 +137,38 @@ export default {
         }, 3000);
       } else {
         this.mostrarMensaje = false;
-        this.agregarProducto();
+        if (this.validarEntradas()) {
+          this.agregarProducto();
+          this.mostrar = true;
+          setTimeout(() => {
+            this.mostrar = false;
+          }, 3000);
+        }
+      }
+    },
+    validarEntradas() {
+      try {
+        let validar = this.mensaje.codigo.primero;
+        let numero = 2;
+        if (this.nuevoNombre === null) {
+          this.mensaje.nombre = "El nombre es obligatorio";
+          numero--;
+        }
+        if (this.nuevoCodigo === null) {
+          this.mensaje.codigo = "El código es obligatorio";
+          numero--;
+        }
+
+        if (numero === 2) {
+          return true;
+        } else {
+          return false;
+        }
+      } catch (error) {
+        console.error("Error a ocurrido un problema");
+        console.error(error);
         this.mostrar = true;
-        setTimeout(() => {
-          this.mostrar = false;
-        }, 3000);
+        this.mensajeFinal = " ha ocurrido un error";
       }
     },
   },
@@ -202,8 +244,8 @@ td {
   padding: 10px;
   border-bottom: 1px solid #666;
 }
-tr:hover{
-    background: #00a098;
-    color: #fff;
+tr:hover {
+  background: #00a098;
+  color: #fff;
 }
 </style>
