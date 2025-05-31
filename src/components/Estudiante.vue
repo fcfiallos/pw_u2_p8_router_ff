@@ -15,7 +15,6 @@
     <input v-model="nuevoDireccion" id="id_direccion" type="text" />
     <button v-on:click="agregarEstudiante()">Agregar</button>
     <ul>
-      <!--El error es porque pide un identificador (ej.: cedula)-->
       <li
         v-for="{ nombre, apellido, cedula, telefono, direccion } in lista"
         :key="nombre"
@@ -116,6 +115,36 @@ export default {
       const mes = this.$route.query.mes;
       console.log(mes);
     },
+  },
+  beforeCreate() {
+    console.log("beforeCreate");
+  },
+  created() {
+    console.log("create");
+  },
+  beforeMount() {
+    console.log("beforeMount");
+  },
+  mounted() {
+    const cedula = this.$route.params.cedula;
+    console.log(cedula);
+    const anio = this.$route.query.anio;
+    console.log(anio);
+    const mes = this.$route.query.mes;
+    console.log(mes); 
+    console.log("mounted");
+  },
+  beforeUpdate() {
+    console.log("beforeUpdate");
+  },
+  updated() {
+    console.log("updated");
+  },
+  beforeUnmount() {
+    console.log("beforeDestroy");
+  },
+  unmounted() {
+    console.log("unmounted");
   },
 };
 </script>
