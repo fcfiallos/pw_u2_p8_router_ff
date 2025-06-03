@@ -47,6 +47,11 @@ const routes = [
     path: '/estudiante/tabla',
     name: 'tablaEstudiante',
     component: () => import('@/views/EstudianteTablaView.vue')
+  },
+  {
+    path:'/pokemon',
+    name: 'pokemonView',
+    component:()=> import('@/views/PokemonView.vue')
   }
   
 ]
