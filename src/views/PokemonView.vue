@@ -1,6 +1,6 @@
 <template>
   <h1>Selecciona el Pokemon correcto</h1>
-  <pokemon-image :pokemonId="35" :mostrar-imagen="true" />
+  <pokemon-image :pokemonId="8" :mostrar-imagen="true" />
   <!--es un alias de vue-->
   <PokemonOptions :pokemons="vectorPokemon"/>
 </template>
@@ -14,7 +14,6 @@ export default {
     return{
       vectorPokemon: [],
     }
-   
   },
   components: {
     PokemonImage,
