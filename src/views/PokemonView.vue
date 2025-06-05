@@ -1,22 +1,39 @@
 <template>
-    <h1>Selecciona el Pokemon correcto</h1>
-  <pokemon-image :pokemonId="50" :mostrar-imagen="true"/> <!--es un alias de vue-->
-  <PokemonOptions />
-  <!--dado un numero especifico del 1 al 600 nos retornara un pokemon con su imagen y nombre-->
-  <!--son dos componentes independientes que se comunicaran entre ellos-->
-  <!--los componentes deben tener un objetivo y función clara -->
+  <h1>Selecciona el Pokemon correcto</h1>
+  <pokemon-image :pokemonId="35" :mostrar-imagen="true" />
+  <!--es un alias de vue-->
+  <PokemonOptions :pokemons="vectorPokemon"/>
 </template>
-
+ 
 <script>
 import PokemonImage from "@/components/PokemonImage.vue";
 import PokemonOptions from "@/components/PokemonOptions.vue";
+import { obtenerOpcionesFachada } from "@/clients/PokemonClient";
 export default {
+  data() {
+    return{
+      vectorPokemon: [],
+    }
+   
+  },
   components: {
     PokemonImage,
     PokemonOptions,
   },
+ 
+  methods: {
+    async iniciarJuego() {
+      const opciones = await obtenerOpcionesFachada(4);
+      this.vectorPokemon = opciones;
+      console.log(this.vectorPokemon);
+    },
+  },
+ 
+  mounted() {
+    this.iniciarJuego();
+  },
 };
 </script>
-
+ 
 <style>
 </style>

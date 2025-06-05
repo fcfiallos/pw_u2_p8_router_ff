@@ -34,6 +34,7 @@ export default {
       mostrar: this.mostrarImagen,
     };
   },
+  //para hacer lo mas generico la imagene debe retornar la url completa 
   computed: {
     imagenFuente() {
       return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${this.pokemonId}.svg`;
