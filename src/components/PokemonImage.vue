@@ -1,14 +1,15 @@
 <template>
   <!--La mision del componente es mostrar la imagen-->
+   {{ mensaje1 }}
   <div class="image-container">
     <img
-      v-if="!mostrar"
+      v-if="!mostrarImagen"
       class="ocultar"
       :src="imagenFuente"
       alt="No se puede renderizar la imagen"
     />
     <img
-      v-if="mostrar"
+      v-if="mostrarImagen"
       :src="imagenFuente"
       alt="No se puede renderizar la imagen"
     />
@@ -31,7 +32,7 @@ export default {
   },
   data() {
     return {
-      mostrar: this.mostrarImagen,
+      mensaje1:"mensaje1"
     };
   },
   //para hacer lo mas generico la imagene debe retornar la url completa 
