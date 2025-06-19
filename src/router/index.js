@@ -1,8 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue' //importa la pagina web
 import EstudianteView from '@/views/EstudianteView.vue'
-import ProductoView from '@/views/ProductoView.vue' 
-import PreguntaView  from '@/views/PreguntaView.vue'
+import ProductoView from '@/views/ProductoView.vue'
+import PreguntaView from '@/views/PreguntaView.vue'
 
 const routes = [
   {
@@ -49,11 +49,15 @@ const routes = [
     component: () => import('@/views/EstudianteTablaView.vue')
   },
   {
-    path:'/pokemon',
+    path: '/pokemon',
     name: 'pokemonView',
-    component:()=> import('@/views/PokemonView.vue')
+    component: () => import('@/views/PokemonView.vue')
+  }, {
+    path: '/responsivo',
+    name: 'resposivoView',
+    component: () => import('@/views/ResponsivoView.vue')
   }
-  
+
 ]
 
 const router = createRouter({

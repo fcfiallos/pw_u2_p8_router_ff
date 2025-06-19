@@ -9,7 +9,8 @@
       <router-link to="/pregunta">Pregunta</router-link> |
       <router-link to="/chiste">Chiste</router-link> |
       <router-link to="/estudiante/tabla">Estudiante Tabla</router-link> |
-      <router-link to="/pokemon">Pokemon</router-link> 
+      <router-link to="/pokemon">Pokemon</router-link>
+      <router-link to="/responsivo">Página Responsiva</router-link>
     </nav>
   </div>
 </template>
